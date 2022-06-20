@@ -49,3 +49,27 @@ const validateRate = (rate) => {
   return null;
 };
 
+const validateTalk = (req, res, next) => {
+  const { talk } = req.body;
+  console.log(talk);
+  if (!talk) {
+    return res.status(400)
+    .json({ message: 'O campo "talk" é obrigatório' });
+  }
+  const { rate, watchedAt } = talk;
+
+  const rateResponse = validateRate(rate);
+  if (rateResponse !== null) return res.status(400).json(rateResponse);
+
+  const dateResponse = validateWatchedAt(watchedAt);
+  if (dateResponse !== null) return res.status(400).json(dateResponse);
+  
+  next();
+};
+
+module.exports = {
+  validateToken,
+  validateName,
+  validateAge,
+  validateTalk,
+};
