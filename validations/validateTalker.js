@@ -26,3 +26,15 @@ const validateAge = (req, res, next) => {
   next();
 };
 
+const validateWatchedAt = (watchedAt) => {
+  const regexDate = /^(0?[1-9]|[12][0-9]|3[01])[/-](0?[1-9]|1[012])[/-]\d{4}$/;
+  const REQUIRED_FIELD = 'O campo "watchedAt" é obrigatório';
+  const CORRECT_FORMAT = 'O campo "watchedAt" deve ter o formato "dd/mm/aaaa"';
+  if (!watchedAt) {
+      return { message: REQUIRED_FIELD };
+    }
+    if (!watchedAt.match(regexDate)) {
+      return { message: CORRECT_FORMAT };
+    }
+  return null;
+};
