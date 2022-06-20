@@ -38,3 +38,14 @@ const validateWatchedAt = (watchedAt) => {
     }
   return null;
 };
+
+const validateRate = (rate) => {
+  if (typeof rate === 'undefined') {
+    return { message: 'O campo "rate" é obrigatório' };
+  }
+  if (!(rate >= 1 && rate <= 5)) {
+    return { message: 'O campo "rate" deve ser um inteiro de 1 à 5' };
+  }
+  return null;
+};
+
