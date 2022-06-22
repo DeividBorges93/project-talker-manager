@@ -1,18 +1,22 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const { getTalkers } = require('./middlewares/getTalkers');
 const { getTalkerById } = require('./middlewares/getTalkerById');
 const { createLogin } = require('./middlewares/createLogin');
 const { createTalker } = require('./middlewares/newTalker');
+const { editTalker } = require('./middlewares/editTalker');
+const { deleteTalker } = require('./middlewares/deleteTalker');
+const { middlewareError } = require('./middlewares/middlewareError');
 
-const { validateEmail, validatePassword } = require('./validations/validateUser');
 const {
   validateToken,
   validateName,
   validateAge,
   validateTalk } = require('./validations/validateTalker');
-const { editTalker } = require('./middlewares/editTalker');
-const { deleteTalker } = require('./middlewares/deleteTalker');
+const {
+  validateEmail,
+  validatePassword } = require('./validations/validateUser');
 
 const app = express();
 app.use(bodyParser.json());
