@@ -39,6 +39,8 @@ app.put('/talker/:id', validateToken, validateName, validateAge, validateTalk, e
 
 app.delete('/talker/:id', validateToken, deleteTalker);
 
+app.use(middlewareError);
+
 app.listen(PORT, () => {
   console.log('Online');
 });
