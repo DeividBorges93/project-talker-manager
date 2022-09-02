@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Talker manager",
+    "description": "Essa API é para cadastro e pesquisa de 'talkers",
+    "contact": {
+      "email": "deividdeveloper22@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "URL inicial do projeto"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {}
+    },
+    "/talker": {
+      "get": {},
+      "post": {}
+    },
+    "/talker/search": {
+      "get": {}
+    },
+    "/talker/:id": {
+      "get": {},
+      "put": {},
+      "delete": {}
+    }
+  }
+  
+}
