@@ -2,13 +2,13 @@
   "name": "sd-0x-project-talker-manager",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "jest --runInBand --verbose --forceExit",
     "posttest": "cp tests/seed.json talker.json",
     "restore": "cp tests/seed.json talker.json",
-    "start": "nodemon index.js",
-    "dev": "nodemon index.js --ignore 'talker.json'",
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js --ignore 'talker.json'",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "keywords": [],
