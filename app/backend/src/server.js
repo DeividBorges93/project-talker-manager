@@ -1,6 +1,6 @@
 const cors = require('cors');
 
-const { loginRoutes, talkerRoutes, docAPIRoute } = require('./src/routes');
+const { loginRoutes, talkerRoutes, docAPIRoute } = require('./routes');
 const { middlewareError } = require('./middlewares/middlewareError');
 
 const app = require('./api');

@@ -8,7 +8,7 @@
     "posttest": "cp tests/seed.json talker.json",
     "restore": "cp tests/seed.json talker.json",
     "start": "nodemon server.js",
-    "dev": "nodemon server.js --ignore 'talker.json'",
+    "dev": "nodemon ./src/server.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "keywords": [],

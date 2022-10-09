@@ -1,0 +1,8 @@
+{
+  "conventionalCommits.scopes": [
+    "routes",
+    "app",
+    "package",
+    "architecture"
+  ]
+}
