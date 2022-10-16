@@ -17,10 +17,8 @@
   "paths": {
     "/login": {
       "post": {
-        "sumary": "Página de login",
         "description": "Rota para fazer o login de usuário",
         "tags": ["Login"],
-        "security":[{"bearerAuth": [] }],
         "requestBody": {
           "content": {
             "application/json": {
@@ -28,7 +26,7 @@
                 "$ref": "#/components/schemas/Login"
               },
               "examples": {
-                "login": {
+                "Login": {
                   "value": {
                     "email": "email@email.com",
                     "password": "my-secret-password"
