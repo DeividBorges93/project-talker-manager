@@ -87,7 +87,32 @@
             "type": "string"
           }
         }
-      }
+      },
+      "Talker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "talk": {
+            "type": "object",
+            "properties": {
+              "watchedAt": {
+                "type": "string"
+              },
+              "rate": {
+                "type":"number"
+              }
+            }
+          }
+        }
+      },
     },
     "securitySchemes": {
       "bearerAuth": {
