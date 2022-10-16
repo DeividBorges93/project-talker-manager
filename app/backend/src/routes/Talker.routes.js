@@ -3,16 +3,11 @@ const router = Router();
 
 const { getTalkers } = require('../middlewares/getTalkers');
 const { getTalkerById } = require('../middlewares/getTalkerById');
-
-const {
-  validateToken,
-  validateName,
-  validateAge,
-  validateTalk } = require('../validations/validateTalker');
 const { filterByName } = require('../middlewares/filterByName');
 const { deleteTalker } = require('../middlewares/deleteTalker');
 const { createTalker } = require('../middlewares/newTalker');
 const { editTalker } = require('../middlewares/editTalker');
+const { validateToken, validateName, validateAge, validateTalk } = require('../validations/validateTalker');
 
 
 router.get('/talker', getTalkers);

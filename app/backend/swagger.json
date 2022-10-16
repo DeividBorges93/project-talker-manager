@@ -1,0 +1,215 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Talker manager",
+    "description": "Essa API é para cadastro e pesquisa de 'talkers",
+    "contact": {
+      "email": "deividdeveloper22@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "URL inicial do projeto"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "description": "Rota para fazer o login de usuário",
+        "tags": ["Login"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              },
+              "examples": {
+                "Login": {
+                  "value": {
+                    "email": "email@email.com",
+                    "password": "my-secret-password"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "email ou senha incorretos"
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref":"#/components/schemas/Token"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talker": {
+      "get": {
+        "description": "Rota que retorna todos os 'talkers' cadastrados",
+        "tags": ["Talkers"],
+        "security":[{"bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"array",
+                  "$ref":"#/components/schemas/Talkers"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Página de cadastro de novo 'talker'",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Talker"
+              },
+              "examples": {
+                "Talker": {
+                  "value": {
+                    "name": "Henrique Albuquerque",
+                    "age": 62,
+                    "id": 1,
+                    "talk": {
+                      "watchedAt": "23/10/2020",
+                      "rate": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Token inválido"
+          },
+          "400": {
+            "description": "Todo os campos são obrigatórios"
+          },
+          "201": {
+            "description": "Cadastrado com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/Talker"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/talker/search": {
+      "get": {}
+    },
+    "/talker/:id": {
+      "get": {},
+      "put": {},
+      "delete": {}
+    }
+  },
+  "components": {
+    "schemas": {
+      "Login": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "Token": {
+        "type":"object",
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "Talker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "id": {
+            "type": "number"
+          },
+          "talk": {
+            "type": "object",
+            "properties": {
+              "watchedAt": {
+                "type": "string"
+              },
+              "rate": {
+                "type":"number"
+              }
+            }
+          }
+        }
+      },
+      "Talkers": {
+        "type": "array",
+        "items": {
+          "type":"object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "age": {
+              "type": "number"
+            },
+            "id": {
+              "type": "number"
+            },
+            "talk": {
+              "type": "object",
+              "properties": {
+                "watchedAt": {
+                  "type": "string"
+                },
+                "rate": {
+                  "type":"number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "name":"Authorization",
+        "in": "header"
+      }
+    }
+  }
+}
