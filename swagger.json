@@ -73,7 +73,52 @@
           }
         }
       },
-      "post": {}
+      "post": {
+        "description": "Página de cadastro de novo 'talker'",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Talker"
+              },
+              "examples": {
+                "Talker": {
+                  "value": {
+                    "name": "Henrique Albuquerque",
+                    "age": 62,
+                    "id": 1,
+                    "talk": {
+                      "watchedAt": "23/10/2020",
+                      "rate": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Token inválido"
+          },
+          "400": {
+            "description": "Todo os campos são obrigatórios"
+          },
+          "201": {
+            "description": "Cadastrado com sucesso!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/Talker"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/talker/search": {
       "get": {}
