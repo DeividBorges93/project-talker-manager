@@ -15,7 +15,7 @@ router.post('/talker', validateToken, validateName, validateAge, validateTalk, c
 
 router.get('/talker/search', validateToken, filterByName);
 
-router.get('/talker/:id', getTalkerById);
+router.get('/talker/:id', validateToken, getTalkerById);
 router.put('/talker/:id', validateToken, validateName, validateAge, validateTalk, editTalker);
 router.delete('/talker/:id', validateToken, deleteTalker);
 
