@@ -245,10 +245,158 @@
         }
       }
     },
-    "/talker/:id": {
-      "get": {},
-      "put": {},
-      "delete": {}
+    "/talker/{id}": {
+      "get": {
+        "description": "Rota que retorna todos o 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+      ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/Talker"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Rota que edita as informações de um 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTalker"
+              },
+              "examples": {
+                "Talker": {
+                  "value": {
+                    "name": "Daniele Santos",
+                    "age": 56,
+                    "talk": {
+                      "watchedAt": "22/10/2019",
+                      "rate": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/EditTalker"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Rota que deleta as informações de um 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
     }
   },
   "components": {
