@@ -38,7 +38,30 @@
         },
         "responses": {
           "400": {
-            "description": "email ou senha incorretos"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/emailIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/emailMustHaveThe@"
+                      },
+                      {
+                        "$ref": "#/components/schemas/passwordIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/passwordIsNotgt6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "200": {
             "description": "OK",
@@ -58,7 +81,7 @@
       "get": {
         "description": "Rota que retorna todos os 'talkers' cadastrados",
         "tags": ["Talkers"],
-        "security":[{"bearerAuth": [] }],
+        "security":[{"apiKey": [] }],
         "responses": {
           "200": {
             "description": "OK",
@@ -100,11 +123,66 @@
           }
         },
         "responses": {
-          "401": {
-            "description": "Token inválido"
-          },
           "400": {
-            "description": "Todo os campos são obrigatórios"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/nameIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/nameIsNotgt3"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ageIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ageIsNotgt18"
+                      },
+                      {
+                        "$ref": "#/components/schemas/watchedAtIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/watchedAtMustHaveDateFormat"
+                      },
+                      {
+                        "$ref": "#/components/schemas/rateIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/rateIsAIntegerlt5"
+                      },
+                      {
+                        "$ref": "#/components/schemas/talkIsRequired"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "201": {
             "description": "Cadastrado com sucesso!",
@@ -121,12 +199,204 @@
       }
     },
     "/talker/search": {
-      "get": {}
+      "get": {
+        "description": "Rota que retorna os 'talkers' que contiver no nome o que foi digitado na query",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "schema":{ "type": "string" }
+            }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"array",
+                  "$ref":"#/components/schemas/Talkers"
+                }
+              }
+            }
+          }
+        }
+      }
     },
-    "/talker/:id": {
-      "get": {},
-      "put": {},
-      "delete": {}
+    "/talker/{id}": {
+      "get": {
+        "description": "Rota que retorna todos o 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+      ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/Talker"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "Rota que edita as informações de um 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditTalker"
+              },
+              "examples": {
+                "Talker": {
+                  "value": {
+                    "name": "Daniele Santos",
+                    "age": 56,
+                    "talk": {
+                      "watchedAt": "22/10/2019",
+                      "rate": 5
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"object",
+                  "$ref":"#/components/schemas/EditTalker"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Rota que deleta as informações de um 'talker' pelo id cadastrado",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema":{ "type": "string" }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -175,6 +445,28 @@
           }
         }
       },
+      "EditTalker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "talk": {
+            "type": "object",
+            "properties": {
+              "watchedAt": {
+                "type": "string"
+              },
+              "rate": {
+                "type":"number"
+              }
+            }
+          }
+        }
+      },
       "Talkers": {
         "type": "array",
         "items": {
@@ -200,6 +492,141 @@
                 }
               }
             }
+          }
+        }
+      },
+      "emailIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'email' é obrigatório"
+          }
+        }
+      },
+      "emailMustHaveThe@": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'email' deve ter o formato 'email@email.com'"
+          }
+        }
+      },
+      "passwordIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'password' é obrigatório"
+          }
+        }
+      },
+      "passwordIsNotgt6": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'password' deve ter pelo menos 6 caracteres"
+          }
+        }
+      },
+      "tokenNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Token não encontrado"
+          }
+        }
+      },
+      "invalidToken": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Token inválido"
+          }
+        }
+      },
+      "nameIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'name' é obrigatório"
+          }
+        }
+      },
+      "nameIsNotgt3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'name' deve ter pelo menos 3 caracteres"
+          }
+        }
+      },
+      "ageIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'age' é obrigatório"
+          }
+        }
+      },
+      "ageIsNotgt18": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "A pessoa palestrante deve ser maior de idade"
+          }
+        }
+      },
+      "watchedAtIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'watchedAt' é obrigatório"
+          }
+        }
+      },
+      "watchedAtMustHaveDateFormat": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'watchedAt' deve ter o formato 'dd/mm/aaaa'"
+          }
+        }
+      },
+      "rateIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'rate' é obrigatório"
+          }
+        }
+      },
+      "rateIsAIntegerlt5": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'rate' deve ser um inteiro de 1 à 5"
+          }
+        }
+      },
+      "talkIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'talk' é obrigatório"
           }
         }
       }
