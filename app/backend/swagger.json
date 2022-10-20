@@ -175,6 +175,28 @@
           }
         }
       },
+      "EditTalker": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number"
+          },
+          "talk": {
+            "type": "object",
+            "properties": {
+              "watchedAt": {
+                "type": "string"
+              },
+              "rate": {
+                "type":"number"
+              }
+            }
+          }
+        }
+      },
       "Talkers": {
         "type": "array",
         "items": {
