@@ -38,7 +38,30 @@
         },
         "responses": {
           "400": {
-            "description": "email ou senha incorretos"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/emailIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/emailMustHaveThe@"
+                      },
+                      {
+                        "$ref": "#/components/schemas/passwordIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/passwordIsNotgt6"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "200": {
             "description": "OK",
@@ -100,11 +123,66 @@
           }
         },
         "responses": {
-          "401": {
-            "description": "Token inválido"
-          },
           "400": {
-            "description": "Todo os campos são obrigatórios"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/nameIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/nameIsNotgt3"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ageIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/ageIsNotgt18"
+                      },
+                      {
+                        "$ref": "#/components/schemas/watchedAtIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/watchedAtMustHaveDateFormat"
+                      },
+                      {
+                        "$ref": "#/components/schemas/rateIsRequired"
+                      },
+                      {
+                        "$ref": "#/components/schemas/rateIsAIntegerlt5"
+                      },
+                      {
+                        "$ref": "#/components/schemas/talkIsRequired"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
           },
           "201": {
             "description": "Cadastrado com sucesso!",
