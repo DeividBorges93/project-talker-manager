@@ -199,7 +199,51 @@
       }
     },
     "/talker/search": {
-      "get": {}
+      "get": {
+        "description": "Rota que retorna os 'talkers' que contiver no nome o que foi digitado na query",
+        "tags": ["Talkers"],
+        "security":[{"apiKey": [] }],
+        "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "schema":{ "type": "string" }
+            }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/tokenNotFound"
+                      },
+                      {
+                        "$ref": "#/components/schemas/invalidToken"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type":"array",
+                  "$ref":"#/components/schemas/Talkers"
+                }
+              }
+            }
+          }
+        }
+      }
     },
     "/talker/:id": {
       "get": {},
