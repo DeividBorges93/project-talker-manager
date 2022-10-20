@@ -58,7 +58,7 @@
       "get": {
         "description": "Rota que retorna todos os 'talkers' cadastrados",
         "tags": ["Talkers"],
-        "security":[{"bearerAuth": [] }],
+        "security":[{"apiKey": [] }],
         "responses": {
           "200": {
             "description": "OK",
@@ -200,6 +200,141 @@
                 }
               }
             }
+          }
+        }
+      },
+      "emailIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'email' é obrigatório"
+          }
+        }
+      },
+      "emailMustHaveThe@": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'email' deve ter o formato 'email@email.com'"
+          }
+        }
+      },
+      "passwordIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'password' é obrigatório"
+          }
+        }
+      },
+      "passwordIsNotgt6": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'password' deve ter pelo menos 6 caracteres"
+          }
+        }
+      },
+      "tokenNotFound": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Token não encontrado"
+          }
+        }
+      },
+      "invalidToken": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Token inválido"
+          }
+        }
+      },
+      "nameIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'name' é obrigatório"
+          }
+        }
+      },
+      "nameIsNotgt3": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O 'name' deve ter pelo menos 3 caracteres"
+          }
+        }
+      },
+      "ageIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'age' é obrigatório"
+          }
+        }
+      },
+      "ageIsNotgt18": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "A pessoa palestrante deve ser maior de idade"
+          }
+        }
+      },
+      "watchedAtIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'watchedAt' é obrigatório"
+          }
+        }
+      },
+      "watchedAtMustHaveDateFormat": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'watchedAt' deve ter o formato 'dd/mm/aaaa'"
+          }
+        }
+      },
+      "rateIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'rate' é obrigatório"
+          }
+        }
+      },
+      "rateIsAIntegerlt5": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'rate' deve ser um inteiro de 1 à 5"
+          }
+        }
+      },
+      "talkIsRequired": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O campo 'talk' é obrigatório"
           }
         }
       }
